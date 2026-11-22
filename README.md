@@ -34,7 +34,7 @@ tasks.named('unpackDependencySources') {
 }
 ```
 
-Tested with Gradle 9.7, configuration cache compatible.
+Tested with Gradle 9.9, configuration cache compatible.
 
 ## Maven
 
