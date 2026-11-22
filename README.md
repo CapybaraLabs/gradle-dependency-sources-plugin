@@ -40,7 +40,7 @@ The plugin is not published yet. Until then, include it as a composite build in 
 
 ```groovy
 pluginManagement {
-    includeBuild('../dependency-sources/gradle-plugin')
+    includeBuild('../dependency-sources')
 }
 ```
 
@@ -71,5 +71,5 @@ The sources of all dependencies are unpacked in `build/dependency-sources/<group
 ## Development
 
 ```shell
-cd gradle-plugin && ./gradlew check   # TestKit functional tests against Maven Central
+./gradlew check   # TestKit functional tests against Maven Central
 ```
