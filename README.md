@@ -16,7 +16,7 @@ Dependencies without a published sources jar are skipped and counted in the outp
 
 ```groovy
 plugins {
-    id 'dev.capybaralabs.dependency-sources' version '0.1.0-SNAPSHOT'
+    id 'dev.capybaralabs.dependency-sources' version '0.1.0'
 }
 ```
 
@@ -35,14 +35,6 @@ tasks.named('unpackDependencySources') {
 ```
 
 Tested with Gradle 9.7, configuration cache compatible.
-
-The plugin is not published yet. Until then, include it as a composite build in `settings.gradle`:
-
-```groovy
-pluginManagement {
-    includeBuild('../dependency-sources')
-}
-```
 
 ## Maven
 
@@ -73,3 +65,5 @@ The sources of all dependencies are unpacked in `build/dependency-sources/<group
 ```shell
 ./gradlew check   # TestKit functional tests against Maven Central
 ```
+
+Push a `v<version>` tag to publish that version to the Gradle Plugin Portal.

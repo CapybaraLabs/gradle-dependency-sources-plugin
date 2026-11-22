@@ -1,9 +1,10 @@
 plugins {
     id 'java-gradle-plugin'
+    id 'com.gradle.plugin-publish' version '2.2.1'
 }
 
 group = 'dev.capybaralabs'
-version = '0.1.0-SNAPSHOT'
+// version lives in gradle.properties, releases override it with -Pversion=<tag>
 
 repositories {
     mavenCentral()
@@ -27,6 +28,8 @@ testing {
 }
 
 gradlePlugin {
+    website = 'https://github.com/CapybaraLabs/dependency-sources'
+    vcsUrl = 'https://github.com/CapybaraLabs/dependency-sources.git'
     testSourceSets(sourceSets.functionalTest)
     plugins {
         dependencySources {
@@ -34,10 +37,15 @@ gradlePlugin {
             implementationClass = 'dev.capybaralabs.depsources.gradle.DependencySourcesPlugin'
             displayName = 'Dependency Sources'
             description = 'Unpack the sources of all dependencies so they become greppable for humans and AI agents.'
+            tags = ['sources', 'dependencies', 'grep', 'ai', 'agents']
         }
     }
 }
 
 tasks.named('check') {
     dependsOn testing.suites.functionalTest
+}
+
+tasks.named('javadoc') {
+    options.addStringOption('Xdoclint:all,-missing', '-quiet')
 }
