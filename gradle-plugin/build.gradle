@@ -1,0 +1,43 @@
+plugins {
+    id 'java-gradle-plugin'
+}
+
+group = 'space.npstr'
+version = '0.1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(17)
+    }
+}
+
+testing {
+    suites {
+        functionalTest(JvmTestSuite) {
+            useJUnitJupiter('6.1.3')
+            dependencies {
+                implementation 'org.assertj:assertj-core:3.27.7'
+            }
+        }
+    }
+}
+
+gradlePlugin {
+    testSourceSets(sourceSets.functionalTest)
+    plugins {
+        dependencySources {
+            id = 'space.npstr.dependency-sources'
+            implementationClass = 'space.npstr.depsources.gradle.DependencySourcesPlugin'
+            displayName = 'Dependency Sources'
+            description = 'Unpack the sources of all dependencies so they become greppable for humans and AI agents.'
+        }
+    }
+}
+
+tasks.named('check') {
+    dependsOn testing.suites.functionalTest
+}
