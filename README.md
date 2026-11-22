@@ -1,20 +1,18 @@
 # dependency-sources
 
-Gradle and Maven plugins that unpack the sources jars of all your dependencies (direct and transitive, main and test)
-into plain directories, so that `grep`, `rg` and AI coding agents can read the code you depend on.
+A Gradle plugin that unpacks the sources jars of all your dependencies (direct and transitive, main and test) into
+plain directories, so that `grep`, `rg` and AI coding agents can read the code you depend on.
 
 ```
-build/dependency-sources/            (Gradle)
-target/dependency-sources/           (Maven)
+build/dependency-sources/
 └── <group>/<artifact>/<version>/
     └── org/example/Foo.java
 ```
 
 Each run replaces the directory's contents, so sources of dependencies you dropped disappear.
-Dependencies without a published sources jar are skipped and counted in the output; run with `--info` (Gradle)
-or `-X` (Maven) to list them.
+Dependencies without a published sources jar are skipped and counted in the output; run with `--info` to list them.
 
-## Gradle
+## Usage
 
 ```groovy
 plugins {
@@ -48,24 +46,16 @@ pluginManagement {
 
 ## Maven
 
+No plugin needed, the stock dependency plugin does the job:
+
 ```shell
-./mvnw dev.capybaralabs:dependency-sources-maven-plugin:0.1.0-SNAPSHOT:unpack
+rm -rf target/dependency-sources && ./mvnw compile dependency:unpack-dependencies -Dclassifier=sources \
+  -Dmdep.useSubDirectoryPerArtifact=true -DoutputDirectory=target/dependency-sources
 ```
 
-Run `./mvnw install` in `maven-plugin/` first while the plugin is not published. Declare it in your `pom.xml` to shorten
-the call to `./mvnw dependency-sources:unpack`:
-
-```xml
-<plugin>
-    <groupId>dev.capybaralabs</groupId>
-    <artifactId>dependency-sources-maven-plugin</artifactId>
-    <version>0.1.0-SNAPSHOT</version>
-</plugin>
-```
-
-It only collects the dependency graph and does not need your modules to be built, so it works in multi-module projects
-without running `package` first. Reactor modules are skipped. Change the output directory with
-`-DdependencySources.outputDirectory=...`.
+- `rm -rf` removes sources of dependencies you dropped since the last run.
+- `compile` lets multi-module builds resolve their sibling modules; without it the goal fails on them.
+- Missing sources jars are skipped silently, and folders are named `<artifact>-<version>-sources-jar`, without the group.
 
 ## Telling your agent
 
@@ -82,5 +72,4 @@ The sources of all dependencies are unpacked in `build/dependency-sources/<group
 
 ```shell
 cd gradle-plugin && ./gradlew check   # TestKit functional tests against Maven Central
-cd maven-plugin && ./mvnw verify      # maven-invoker-plugin integration tests
 ```
