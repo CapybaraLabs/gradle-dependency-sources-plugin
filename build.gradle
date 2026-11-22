@@ -67,34 +67,40 @@ tasks.register('resolveAndLockAll') {
         assert gradle.startParameter.writeDependencyLocks
     }
     doLast {
-        configurations.all {
-            resolutionStrategy {
-                componentSelection properReleasesOnly()
-            }
-        }
         configurations
                 .matching { it.canBeResolved }
                 .each { it.resolve() }
     }
 }
 
+// Version ranges would otherwise resolve to pre-releases, when locking as well as in the outdated report
+configurations.configureEach {
+    resolutionStrategy.componentSelection stableReleasesOnly()
+}
+
 // https://github.com/ben-manes/gradle-versions-plugin
-dependencyUpdates.resolutionStrategy {
-    componentSelection properReleasesOnly()
+dependencyUpdates {
+    checkConstraints = true
+    resolutionStrategy {
+        componentSelection stableReleasesOnly()
+    }
 }
 
 tasks.register("outdated") {
     dependsOn dependencyUpdates
 }
 
-static def properReleasesOnly() {
+static def isNonStable(String version) {
+    def stableKeyword = ['RELEASE', 'FINAL', 'GA'].any { it -> version.toUpperCase().contains(it) }
+    def regex = /^[0-9,.v-]+(-r)?(_[0-9]+)?$/
+    return !stableKeyword && !(version ==~ regex)
+}
+
+static def stableReleasesOnly() {
     return { rules ->
         rules.all { ComponentSelection selection ->
-            boolean rejected = ['alpha', 'beta', 'rc', 'preview', 'm1', 'm2', 'm3', 'cr1'].any {
-                q -> selection.candidate.version.toLowerCase().contains(q)
-            }
-            if (rejected) {
-                selection.reject('Release candidate')
+            if (isNonStable(selection.candidate.version)) {
+                selection.reject('Pre-release')
             }
         }
     }
