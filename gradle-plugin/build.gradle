@@ -2,7 +2,7 @@ plugins {
     id 'java-gradle-plugin'
 }
 
-group = 'space.npstr'
+group = 'dev.capybaralabs'
 version = '0.1.0-SNAPSHOT'
 
 repositories {
@@ -30,8 +30,8 @@ gradlePlugin {
     testSourceSets(sourceSets.functionalTest)
     plugins {
         dependencySources {
-            id = 'space.npstr.dependency-sources'
-            implementationClass = 'space.npstr.depsources.gradle.DependencySourcesPlugin'
+            id = 'dev.capybaralabs.dependency-sources'
+            implementationClass = 'dev.capybaralabs.depsources.gradle.DependencySourcesPlugin'
             displayName = 'Dependency Sources'
             description = 'Unpack the sources of all dependencies so they become greppable for humans and AI agents.'
         }

@@ -1,4 +1,4 @@
-package space.npstr.depsources.gradle;
+package dev.capybaralabs.depsources.gradle;
 
 import org.gradle.api.Plugin;
 import org.gradle.api.Project;

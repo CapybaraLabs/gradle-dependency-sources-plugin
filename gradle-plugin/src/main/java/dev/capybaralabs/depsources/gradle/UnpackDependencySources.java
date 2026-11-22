@@ -1,4 +1,4 @@
-package space.npstr.depsources.gradle;
+package dev.capybaralabs.depsources.gradle;
 
 import java.io.File;
 import java.util.List;

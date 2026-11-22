@@ -1,4 +1,4 @@
-package space.npstr.depsources.maven;
+package dev.capybaralabs.depsources.maven;
 
 import java.io.File;
 import java.io.IOException;

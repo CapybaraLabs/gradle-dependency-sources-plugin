@@ -18,7 +18,7 @@ or `-X` (Maven) to list them.
 
 ```groovy
 plugins {
-    id 'space.npstr.dependency-sources' version '0.1.0-SNAPSHOT'
+    id 'dev.capybaralabs.dependency-sources' version '0.1.0-SNAPSHOT'
 }
 ```
 
@@ -49,7 +49,7 @@ pluginManagement {
 ## Maven
 
 ```shell
-./mvnw space.npstr:dependency-sources-maven-plugin:0.1.0-SNAPSHOT:unpack
+./mvnw dev.capybaralabs:dependency-sources-maven-plugin:0.1.0-SNAPSHOT:unpack
 ```
 
 Run `./mvnw install` in `maven-plugin/` first while the plugin is not published. Declare it in your `pom.xml` to shorten
@@ -57,7 +57,7 @@ the call to `./mvnw dependency-sources:unpack`:
 
 ```xml
 <plugin>
-    <groupId>space.npstr</groupId>
+    <groupId>dev.capybaralabs</groupId>
     <artifactId>dependency-sources-maven-plugin</artifactId>
     <version>0.1.0-SNAPSHOT</version>
 </plugin>

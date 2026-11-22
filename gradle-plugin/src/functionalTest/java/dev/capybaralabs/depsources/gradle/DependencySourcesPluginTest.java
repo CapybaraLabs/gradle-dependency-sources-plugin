@@ -1,4 +1,4 @@
-package space.npstr.depsources.gradle;
+package dev.capybaralabs.depsources.gradle;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -83,7 +83,7 @@ class DependencySourcesPluginTest {
         Files.writeString(projectDir.resolve("build.gradle"), """
             plugins {
                 id 'java'
-                id 'space.npstr.dependency-sources'
+                id 'dev.capybaralabs.dependency-sources'
             }
             repositories {
                 mavenCentral()
