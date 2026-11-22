@@ -1,4 +1,4 @@
-# dependency-sources
+# gradle-dependency-sources-plugin
 
 A Gradle plugin that unpacks the sources jars of all your dependencies (direct and transitive, main and test) into
 plain directories, so that `grep`, `rg` and AI coding agents can read the code you depend on.

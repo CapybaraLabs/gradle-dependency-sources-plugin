@@ -28,8 +28,8 @@ testing {
 }
 
 gradlePlugin {
-    website = 'https://github.com/CapybaraLabs/dependency-sources'
-    vcsUrl = 'https://github.com/CapybaraLabs/dependency-sources.git'
+    website = 'https://github.com/CapybaraLabs/gradle-dependency-sources-plugin'
+    vcsUrl = 'https://github.com/CapybaraLabs/gradle-dependency-sources-plugin.git'
     testSourceSets(sourceSets.functionalTest)
     plugins {
         dependencySources {
