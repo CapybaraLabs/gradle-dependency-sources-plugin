@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>it</groupId>
+    <artifactId>simple</artifactId>
+    <version>1.0</version>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+            <version>3.22.0</version>
+        </dependency>
+        <!-- test scoped, with transitive dependencies of which one has no sources -->
+        <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+            <version>33.8.0-jre</version>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+</project>
